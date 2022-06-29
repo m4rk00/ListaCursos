@@ -1,6 +1,7 @@
 package com.example.listacursos;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -43,6 +44,18 @@ public class MainActivity extends Activity {
         items.add(new ItemList(R.drawable.javascript, "JavaScript","Curso de JavaScript"));
         items.add(new ItemList(R.drawable.cplus, "CPlus","Curso de CPlus"));
 
+        ListAdapter listAdapter = new ListAdapter(items, new
+                ListAdapter.AdapterCallback() {
+            @Override
+            public void onItemClicked(View v, int itemPosition) {
+                Intent intent = new Intent(getApplicationContext(), CardActivity.class);
+                intent.putExtra("titulo",items.get(itemPosition).getNameItem());
+                intent.putExtra("descripcion",items.get(itemPosition).getDescription());
+                intent.putExtra("imagen",items.get(itemPosition).getImageItem());
+                startActivity(intent);
+            }
+        });
+        recyclerView.setAdapter(listAdapter);
         /* binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());*/
     }
